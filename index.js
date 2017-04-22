@@ -66,7 +66,7 @@ function format(routes) {
         table.push(_o);
     });
 
-    return table.toString();
+    return "(╯°□°）╯︵ ┻━┻\n" + table.toString();
 }
 
 // '/some/route/' -> '/some/route'

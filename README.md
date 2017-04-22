@@ -1,4 +1,4 @@
-# rowdy
+# rowdy (╯°□°）╯︵ ┻━┻
 
 Shows a nice table of your routes in Express.
 
@@ -6,7 +6,7 @@ Shows a nice table of your routes in Express.
 
 ```
 var express = require('express');
-var rowdy = require('rowdy');
+var rowdy = require('rowdy-logger');
 
 var app = express();
 rowdy.begin(app);

@@ -1,22 +1,22 @@
 {
-  "name": "rowdy",
-  "version": "0.0.1",
-  "description": "logs all the routes for your express app",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Hoten/rowdy.git"
-  },
-  "author": "Connor Clark <cjamcl@gmail.com> (http://www.cjamcl.com)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Hoten/rowdy/issues"
-  },
-  "homepage": "https://github.com/Hoten/rowdy#readme",
-  "dependencies": {
-    "cli-table": "^0.3.1"
-  }
+    "name": "rowdy-logger",
+    "version": "0.0.1",
+    "description": "logs all the routes for your express app",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Hoten/rowdy.git"
+    },
+    "author": "Connor Clark <cjamcl@gmail.com> (http://www.cjamcl.com)",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/Hoten/rowdy/issues"
+    },
+    "homepage": "https://github.com/Hoten/rowdy#readme",
+    "dependencies": {
+        "cli-table": "^0.3.1"
+    }
 }
