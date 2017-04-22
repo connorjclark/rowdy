@@ -2,6 +2,8 @@
 
 Shows a nice table of your routes in Express.
 
+![](example.png)
+
 ## Usage
 
 ```
