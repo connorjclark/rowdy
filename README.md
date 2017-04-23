@@ -4,6 +4,10 @@ Shows a nice table of your routes in Express.
 
 ![](example.png)
 
+## Installation
+
+`npm install --save rowdy-logger`
+
 ## Usage
 
 ```
