@@ -12,11 +12,13 @@ function beginRegisteringRoutes(app) {
 
     var oldUse = app.use;
     app.use = function() {
-        var urlBase = arguments[0];
+        var urlBase = arguments[0]
 
-        if (arguments[1] && arguments[1].name == 'router') {
-            var router = arguments[1];
-            collectRoutesFromRouter(urlBase, router);
+        for (var i = 1; i < arguments.length; i++) {
+          if (arguments[i] && arguments[i].name == 'router') {
+              var router = arguments[i];
+              collectRoutesFromRouter(urlBase, router);
+          }
         }
 
         return oldUse.apply(this, arguments);
