@@ -1,6 +1,5 @@
 import rowdy from '../'
-
-const niv = require('npm-install-version')
+import niv from 'npm-install-version'
 
 const versions = ['3.21.2', '4.15.3', '5.0.0-alpha.5']
 
@@ -71,13 +70,59 @@ for (const version of versions) {
 
       const expected = [
         {
-          method: 'ALL',
+          method: 'GET',
+          path: '/'
+        },
+        {
+          method: 'POST',
+          path: '/'
+        },
+        {
+          method: 'PUT',
+          path: '/'
+        },
+        {
+          method: 'DELETE',
           path: '/'
         }
       ]
 
       expectSameRoutes(rowdyResults.getRoutes(), expected)
     })
+
+    if (typeof express().route === 'function') {
+      it('route chaining', () => {
+        const app = express()
+        const rowdyResults = rowdy.begin(app)
+
+        app.route('/')
+          .get((req, res) => {})
+          .post((req, res) => {})
+          .put((req, res) => {})
+          .delete((req, res) => {})
+
+        const expected = [
+          {
+            method: 'GET',
+            path: '/'
+          },
+          {
+            method: 'POST',
+            path: '/'
+          },
+          {
+            method: 'PUT',
+            path: '/'
+          },
+          {
+            method: 'DELETE',
+            path: '/'
+          }
+        ]
+
+        expectSameRoutes(rowdyResults.getRoutes(), expected)
+      })
+    }
 
     if (express.Router()) {
       it('Router', () => {
@@ -90,7 +135,6 @@ for (const version of versions) {
         router.post('/', (req, res) => {})
         router.put('/', (req, res) => {})
         router.delete('/die', (req, res) => {})
-        router.all('/all', (req, res) => {})
 
         app.use('/app', router)
 
@@ -110,10 +154,38 @@ for (const version of versions) {
           {
             method: 'DELETE',
             path: '/app/die'
+          }
+        ]
+
+        expectSameRoutes(rowdyResults.getRoutes(), expected)
+      })
+
+      it('Router all', () => {
+        const app = express()
+        const rowdyResults = rowdy.begin(app)
+
+        const router = express.Router()
+
+        router.all('/', (req, res) => {})
+
+        app.use('/app', router)
+
+        const expected = [
+          {
+            method: 'GET',
+            path: '/app'
           },
           {
-            method: 'ALL',
-            path: '/app/all'
+            method: 'POST',
+            path: '/app'
+          },
+          {
+            method: 'PUT',
+            path: '/app'
+          },
+          {
+            method: 'DELETE',
+            path: '/app'
           }
         ]
 

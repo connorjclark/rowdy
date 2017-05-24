@@ -2,10 +2,15 @@
 
 import Table from 'cli-table'
 
+const METHODS = ['get', 'post', 'put', 'delete']
+
 const beginRegisteringRoutes = app => {
   const routes = []
 
-  // monkey patch the `use` function to store the routers and the paths they operate on
+  const hasRouteFunction = typeof app.route === 'function'
+  const isExpress5 = !app.del
+
+  // monkey patch the `use` function to collect the Routers
 
   const oldUse = app.use
   app.use = function () {
@@ -25,22 +30,43 @@ const beginRegisteringRoutes = app => {
   }
 
   // find routes given app.get, app.post, etc.
-  const methods = ['get', 'post', 'put', 'delete', 'all']
 
-  for (const method of methods) {
-    const oldFn = app[method]
+  // it seems that in express 5, "app.get" uses the same functionality as Router
+  // I guess "app = express()" is an instance of Router
+  // so, do not patch these in Express 5. Otherwise, each route would get collected twice
+  if (!isExpress5) {
+    for (const method of [...METHODS, 'all']) {
+      const oldFn = app[method]
 
-    app[method] = function () {
-      if (arguments.length >= 2) {
-        const path = arguments[0]
+      app[method] = function () {
+        if (arguments.length >= 2) {
+          const path = arguments[0]
+          collect(routes, method, path)
+        }
 
-        routes.push({
-          path: removeTrailingSlash(path),
-          method: method.toUpperCase()
-        })
+        return oldFn.apply(this, arguments)
+      }
+    }
+  }
+
+  if (hasRouteFunction) {
+    const oldRoute = app.route
+    app.route = function (path) {
+      const result = oldRoute.apply(this, arguments)
+
+      for (const method of METHODS) {
+        const oldFn = result[method]
+        result[method] = function () {
+          routes.push({
+            path: removeTrailingSlash(path),
+            method: method.toUpperCase()
+          })
+
+          return oldFn.apply(this, arguments)
+        }
       }
 
-      return oldFn.apply(this, arguments)
+      return result
     }
   }
 
@@ -55,17 +81,30 @@ const collectRoutesFromRouter = (pathBase, router) => {
 
   for (const stackElement of router.stack.filter(stackElement => stackElement.route)) {
     const path = pathBase + stackElement.route.path
-    const methods = Object.keys(stackElement.route.methods).map(m => m === '_all' ? 'ALL' : m.toUpperCase())
+    const methodsOnStackElement = Object.keys(stackElement.route.methods)
 
-    for (const method of methods) {
-      routes.push({
-        path: removeTrailingSlash(path),
-        method
-      })
+    for (const method of methodsOnStackElement) {
+      collect(routes, method, path)
     }
   }
 
   return routes
+}
+
+const collect = (routes, method, path) => {
+  const upperMethod = method.toUpperCase()
+
+  if (upperMethod === 'ALL' || upperMethod === '_ALL') {
+    routes.push(...METHODS.map(m => ({
+      method: m.toUpperCase(),
+      path: removeTrailingSlash(path)
+    })))
+  } else {
+    routes.push({
+      method: upperMethod,
+      path: removeTrailingSlash(path)
+    })
+  }
 }
 
 const format = routes => {
