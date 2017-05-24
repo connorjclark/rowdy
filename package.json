@@ -1,22 +1,47 @@
 {
-    "name": "rowdy-logger",
-    "version": "0.0.3",
-    "description": "logs all the routes for your express app",
-    "main": "index.js",
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/Hoten/rowdy.git"
-    },
-    "author": "Connor Clark <cjamcl@gmail.com> (http://www.cjamcl.com)",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/Hoten/rowdy/issues"
-    },
-    "homepage": "https://github.com/Hoten/rowdy#readme",
-    "dependencies": {
-        "cli-table": "^0.3.1"
-    }
+  "name": "rowdy-logger",
+  "version": "0.0.3",
+  "description": "logs all the routes for your express app",
+  "main": "index.js",
+  "scripts": {
+    "compile": "rimraf dist/* && babel src/ -d dist/ --ignore __tests__/*",
+    "lint": "eslint . --fix",
+    "test": "jest --coverage",
+    "all": "yarn compile && yarn lint && yarn test",
+    "precommit": "yarn all",
+    "prepush": "yarn all",
+    "prepublish": "yarn all",
+    "preversion": "yarn all",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hoten/rowdy.git"
+  },
+  "author": "Connor Clark <cjamcl@gmail.com> (http://www.cjamcl.com)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hoten/rowdy/issues"
+  },
+  "homepage": "https://github.com/Hoten/rowdy#readme",
+  "dependencies": {
+    "cli-table": "^0.3.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-jest": "^20.0.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "husky": "^0.13.3",
+    "jest": "^20.0.1",
+    "npm-install-version": "^6.0.2",
+    "regenerator-runtime": "^0.10.5",
+    "rimraf": "^2.6.1"
+  }
 }
