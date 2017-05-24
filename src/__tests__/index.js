@@ -191,6 +191,43 @@ for (const version of versions) {
 
         expectSameRoutes(rowdyResults.getRoutes(), expected)
       })
+
+      it('Router middleware aware', () => {
+        const app = express()
+        const rowdyResults = rowdy.begin(app)
+        const someMiddleware = (req, res, next) => next()
+
+        const router = express.Router()
+
+        router.get('/', (req, res) => {})
+        router.post('/', (req, res) => {})
+        router.put('/', (req, res) => {})
+        router.delete('/die', (req, res) => {})
+
+        // two for good measure
+        app.use('/app', someMiddleware, someMiddleware, router)
+
+        const expected = [
+          {
+            method: 'GET',
+            path: '/app'
+          },
+          {
+            method: 'POST',
+            path: '/app'
+          },
+          {
+            method: 'PUT',
+            path: '/app'
+          },
+          {
+            method: 'DELETE',
+            path: '/app/die'
+          }
+        ]
+
+        expectSameRoutes(rowdyResults.getRoutes(), expected)
+      })
     }
   })
 }
