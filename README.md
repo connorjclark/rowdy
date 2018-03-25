@@ -1,18 +1,20 @@
 # rowdy (╯°□°）╯︵ ┻━┻
 
-Shows a nice table of your routes in Express.
+Render a nice table of your Express routes
 
-Supported for Express v. 3, 4, and 5
+Supports Express v. 3, 4, and 5
 
 ![](example.png)
 
 ## Installation
 
-`npm install --save rowdy-logger`
+```sh
+npm install --save rowdy-logger
+```
 
 ## Usage
 
-```
+```javascript
 var express = require('express');
 var rowdy = require('rowdy-logger');
 

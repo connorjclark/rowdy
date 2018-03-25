@@ -2,15 +2,15 @@
   "name": "rowdy-logger",
   "version": "1.0.0",
   "description": "logs all the routes for your express app",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "compile": "rimraf dist/* && babel src/ -d dist/ --ignore __tests__/*",
-    "lint": "eslint . --fix",
+    "compile": "rimraf dist && babel src -d dist --ignore '**/*.test.js'",
+    "lint": "standard --fix",
     "test": "jest --coverage",
     "all": "yarn compile && yarn lint && yarn test",
     "precommit": "yarn all",
     "prepush": "yarn all",
-    "prepublish": "yarn all",
+    "prepublishOnly": "yarn all",
     "preversion": "yarn all",
     "postversion": "git push && git push --tags"
   },
@@ -25,23 +25,28 @@
   },
   "homepage": "https://github.com/Hoten/rowdy#readme",
   "dependencies": {
+    "@babel/runtime": "^7.0.0-beta.42",
     "cli-table": "^0.3.1"
   },
   "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-jest": "^20.0.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
-    "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-node": "^4.2.2",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "husky": "^0.13.3",
-    "jest": "^20.0.1",
+    "@babel/cli": "^7.0.0-beta.42",
+    "@babel/core": "^7.0.0-beta.42",
+    "@babel/plugin-transform-runtime": "^7.0.0-beta.42",
+    "@babel/preset-env": "^7.0.0-beta.42",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^22.4.3",
+    "husky": "^0.14.3",
+    "jest": "^22.4.3",
     "npm-install-version": "^6.0.2",
-    "regenerator-runtime": "^0.10.5",
-    "rimraf": "^2.6.1"
+    "rimraf": "^2.6.1",
+    "standard": "^11.0.1"
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ],
+    "ignore": [
+      "dist"
+    ]
   }
 }
