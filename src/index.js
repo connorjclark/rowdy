@@ -25,8 +25,6 @@ const beginRegisteringRoutes = app => {
     }
 
     return oldUse.apply(this, arguments)
-    // why doesn't this work?
-    // return oldUse(...arguments)
   }
 
   // find routes given app.get, app.post, etc.
