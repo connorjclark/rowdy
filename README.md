@@ -1,4 +1,4 @@
-# rowdy (╯°□°）╯︵ ┻━┻
+# rowdy (╯°□°）╯︵ ┻━┻ &middot; [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/hoten/rowdy/blob/master/LICENSE) [![npm version](https://img.shields.io/npm/v/rowdy-logger.svg?style=flat)](https://www.npmjs.com/package/rowdy-logger) [![Coverage Status](https://img.shields.io/coveralls/hoten/rowdy/master.svg?style=flat)](https://coveralls.io/github/hoten/rowdy?branch=master) [![Build Status](https://travis-ci.org/Hoten/rowdy.svg?branch=master)](https://travis-ci.org/Hoten/rowdy)
 
 Render a nice table of your Express routes
 
