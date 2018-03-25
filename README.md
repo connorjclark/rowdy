@@ -15,15 +15,15 @@ npm install --save rowdy-logger
 ## Usage
 
 ```javascript
-var express = require('express');
-var rowdy = require('rowdy-logger');
+var express = require('express')
+var rowdy = require('rowdy-logger')
 
-var app = express();
+var app = express()
 var rowdyResults = rowdy.begin(app)
 
 // ... apply your routes ...
 
 var server = app.listen(process.env.PORT || 3000, function() {
-    rowdyResults.print();
-});
+    rowdyResults.print()
+})
 ```
