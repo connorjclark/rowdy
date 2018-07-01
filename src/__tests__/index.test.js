@@ -1,7 +1,7 @@
 import rowdy from '../'
 import niv from 'npm-install-version'
 
-const versions = ['3.21.2', '4.15.3', '5.0.0-alpha.5']
+const versions = ['3.21.2', '4.16.3', '5.0.0-alpha.6']
 
 for (const version of versions) {
   const expressVersion = `express@${version}`
