@@ -130,6 +130,4 @@ const print = routes => {
   console.log(format(routes))
 }
 
-export default {
-  begin: beginRegisteringRoutes
-}
+module.exports = { begin: beginRegisteringRoutes }
