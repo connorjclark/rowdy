@@ -1,6 +1,6 @@
 {
   "name": "rowdy-logger",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "logs all the routes for your express app",
   "main": "dist/index.js",
   "scripts": {
